@@ -2,7 +2,7 @@
   <header class="c-header w-100 py-3">
     <div class="container position-relative">
       <div class="d-flex justify-content-between">
-        <p class="mb-0">cvalera@gmail.com</p>
+        <p class="mb-0">{{user}}</p>
         <ul class="ul-reset d-flex">
           <li>
             <router-link to="/market-place">
@@ -26,6 +26,12 @@ import { mapState } from 'vuex';
 export default {
   computed: {
     ...mapState(['general']),
+
+    user() {
+      const stripePayment = window.localStorage.getItem('stripe_payment');
+
+      return JSON.parse(stripePayment)?.customer;
+    },
   },
   methods: {
     isAtiveMenuItem(item) {
