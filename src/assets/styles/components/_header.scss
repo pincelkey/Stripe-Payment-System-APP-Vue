@@ -1,0 +1,19 @@
+.c-header {
+  background-color: $success-color;
+  color: $white;
+  font-size: $fs-18;
+
+  li {
+    margin-left: 1rem;
+  }
+
+  a {
+    color: $white;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      color: $white;
+    }
+  }
+}

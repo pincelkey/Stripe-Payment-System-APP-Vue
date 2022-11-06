@@ -1,0 +1,37 @@
+.c-form-group {
+  &__input,
+  &__label {
+    display: block;
+    width: 100%;
+  }
+
+  &__label {
+    color: $black;
+    font-weight: $font-semibold;
+  }
+
+  &__input {
+    padding: 0.8rem;
+    border: solid 2px $gray-medium;
+    border-radius: 10px;
+  }
+
+  &__error {
+    display: none;
+    padding-left: 1rem;
+    color: $alert-color;
+    font-size: $fs-14;
+  }
+
+  &--error {
+    .c-form-group {
+      &__input {
+        border: solid 2px $alert-color;
+      }
+
+      &__error {
+        display: block;
+      }
+    }
+  }
+}

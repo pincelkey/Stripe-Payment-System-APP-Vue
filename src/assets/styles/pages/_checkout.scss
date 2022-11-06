@@ -1,0 +1,33 @@
+.c-section {
+  &--checkout {
+    .c-checkout {
+      border: solid 2px $gray-medium;
+      border-radius: 10px;
+    }
+
+    .c-stripe-checkout {
+      #stripe-payment-element-errors {
+        display: none;
+        margin-top: 1rem;
+        font-weight: $font-semibold;
+        font-size: $fs-14;
+        border-radius: 0 5px 5px 0;
+        background-color: $alert-light;
+        color: $alert-color;
+        border-left: solid 4px $alert-color;
+        padding: 0.7rem 1rem;
+      }
+
+      &.error {
+        #stripe-payment-element-errors {
+          display: block;
+        }
+      }
+    }
+
+    .c-thanks {
+      font-size: 150px;
+      color: $success-color;
+    }
+  }
+}

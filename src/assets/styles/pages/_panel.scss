@@ -1,0 +1,19 @@
+.c-section {
+  &--panel {
+    .c-courses {
+      &__item {
+        background-color: $primary-light;
+        color: $black;
+        font-weight: $font-bold;
+        border: solid 2px $gray-medium;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+      }
+    }
+
+    .c-membership {
+      border: solid 2px $gray-medium;
+      border-radius: 10px;
+    }
+  }
+}
