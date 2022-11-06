@@ -19,7 +19,10 @@
             </div>
           </div>
 
-          <button class="c-button c-button--primary mt-4 w-100">Iniciar sesión</button>
+          <button class="c-button c-button--primary mt-4 w-100">
+            Iniciar sesión
+            <Icon v-if="isLoading" icon="eos-icons:loading"/>
+          </button>
         </form>
       </section>
     </div>
@@ -36,6 +39,8 @@ export default {
   data() {
     return {
       email: '',
+
+      isLoading: false,
     };
   },
   validations: {
@@ -49,12 +54,39 @@ export default {
       this.$v.$touch();
 
       if (!this.$v.$invalid) {
-        //
-      }
+        this.isLoading = true;
 
-      this.$router.push({
-        path: '/market-place',
-      });
+        fetch(`${process.env.VUE_APP_API}/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: this.email,
+          }),
+        })
+          .then((res) => {
+            if (res.status === 200 || res.status < 300) {
+              return res.json();
+            }
+
+            throw res;
+          })
+          .then((response) => {
+            if (response.status) {
+              window.localStorage.setItem('stripe_payment', JSON.stringify({
+                customer: response.data.id,
+              }));
+
+              this.$router.push({
+                path: '/market-place',
+              });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     },
   },
 };
