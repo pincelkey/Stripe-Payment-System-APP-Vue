@@ -13,9 +13,14 @@
                 <img class="w-100 h-100" src="@/assets/img/example.jpg" alt="">
               </figure>
             </div>
-            <div class="col-7">
+
+            <div v-if="$route.params.product_type === 'course'" class="col-7">
               <h4 class="black w-bold fs-21">Comprar curso de WordPress Avanzado</h4>
               <p class="w-bold fs-18 pri-gray">20 USD</p>
+            </div>
+            <div v-else class="col-7">
+              <h4 class="black w-bold fs-21">Plan Mensual</h4>
+              <p class="w-bold fs-18 pri-gray">10 USD</p>
             </div>
           </div>
         </section>
@@ -36,8 +41,12 @@
               @click="pay()"
               class="c-button c-button--primary w-100 mt-4"
             >
-              Comprar curso
-              <Icon icon="eos-icons:loading"/>
+              {{
+                ($route.params.product_type === 'course')
+                  ? 'Comprar curso'
+                  : 'Suscribirme'
+              }}
+              <Icon v-if="isLoading" icon="eos-icons:loading"/>
             </button>
           </div>
         </section>
@@ -53,10 +62,11 @@ export default {
   data() {
     return {
       isError: false,
+      isLoading: false,
       order: 0,
 
       elementsOptions: {
-        clientSecret: 'pi_3M0taSEl9RLg2yjv1nJaBxQF_secret_pSMFoGkHD4tgmqjgwiZnTkNrq',
+        clientSecret: '',
         appearance: {
           variables: {
             colorPrimary: '#5600ec',
@@ -97,8 +107,13 @@ export default {
       return process.env.VUE_APP_STRIPE_PUBLISHABLE_KEY;
     },
   },
+  mounted() {
+    this.elementsOptions.clientSecret = this.$route.query.cs;
+    this.order = this.$route.query.cs;
+  },
   methods: {
     pay() {
+      this.isLoading = true;
       this.$refs.stripePaymentRef.submit();
     },
 
